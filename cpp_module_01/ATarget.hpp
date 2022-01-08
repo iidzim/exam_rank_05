@@ -2,7 +2,7 @@
 # define ATARGET_HPP
 
 #include <iostream>
-#include "ASpell.hpp"
+class ASpell;
 
 class ATarget{
 
@@ -18,7 +18,9 @@ class ATarget{
         void getHitBySpell(const ASpell& x){
             std::cout << type << " has been " << x.getEffects() << std::endl;
         }
-        
+
 };
+
+#include "ASpell.hpp"
 
 #endif
