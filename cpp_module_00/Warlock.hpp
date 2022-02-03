@@ -1,38 +1,30 @@
 #ifndef WARLOCK_HPP
-# define WARLOCK_HPP 
+# define WARLOCK_HPP
 
 #include <iostream>
+#include <string>
 
 class Warlock{
 
-    private:
-        std::string name;
-        std::string title;
-
     public:
-        Warlock(std::string x, std::string y): name(x), title(y){
-            std::cout << name << ": This looks like another boring day." << std::endl;
-        }
 
-        ~Warlock(){
-            std::cout << name << ": My job here is done!" << std::endl;
+        Warlock(std::string n, std::string t): _name(n), _title(t){
+            std::cout << _name << ": This looks like another boring day.\n";
         }
-
-        std::string const &getName(void) const {
-            return (this->name);
+        ~Warlock(void){
+            std::cout << _name << ": My job here is done!\n";
         }
-
-        std::string const &getTitle(void) const {
-            return (this->title);
-        }
-
-        void setTitle(const std::string &x){
-            this->title = x;
-        }
-
+        const std::string& getName(void) const { return _name; }
+        const std::string& getTitle(void) const { return _title; }
+        void setTitle(const std::string& titre) { _title = titre; }
         void introduce() const{
-            std::cout << name << ": I am " << name << ", " << title << "!\n";
+            std::cout << _name << ": I am " << _name << ", " << _title << " !\n";
         }
+
+    private:
+        std::string _name;
+        std::string _title;
+
 };
 
 #endif
