@@ -9,7 +9,7 @@ class Fwoosh: public ASpell{
     public:
         Fwoosh(void): ASpell("Fwoosh", "fwooshed") {}
         ~Fwoosh(){}
-        virtual ASpell* clone(void) const;
+        ASpell* clone(void) const{return (new Fwoosh());}
 
 };
 

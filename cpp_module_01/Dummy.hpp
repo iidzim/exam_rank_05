@@ -9,7 +9,7 @@ class Dummy : public ATarget{
     public:
         Dummy(void): ATarget("Target Practice Dummy"){}
         ~Dummy(){}
-        virtual ATarget* clone(void)const ;
+        ATarget* clone(void)const {return (new Dummy());}
 };
 
 #endif

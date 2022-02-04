@@ -23,7 +23,7 @@ class Warlock{
             std::cout << _name << ": I am " << _name << ", " << _title << " !\n";
         }
 
-        void learnspell(ASpell* a){
+        void learnSpell(ASpell* a){
 
             std::vector<ASpell *>::iterator it = this->t.begin();
             std::vector<ASpell *>::iterator ite = this->t.end();
@@ -43,7 +43,7 @@ class Warlock{
             std::vector<ASpell *>::iterator ite = this->t.end();
             while (it != ite){
                 if ((*it)->getName() == n){
-                    delete *it;
+                    // delete *it;
                     t.erase(it);
                 }
                 ++it;

@@ -19,9 +19,7 @@ class ATarget{
             return (*this);
         }
         const std::string& getType(void) const {return _type; }
-        void getHitBySpell(const ASpell& as) const {
-            std::cout << _type << " has been " << as.getEffects() << " !\n";
-        }
+        void getHitBySpell(const ASpell& as) const;
         virtual ATarget* clone(void) const = 0;
 
     private:

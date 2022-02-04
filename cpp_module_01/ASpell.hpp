@@ -21,9 +21,7 @@ class ASpell{
         ~ASpell(void){}
         std::string const &getName(void) const { return _name; }
         std::string const &getEffects(void) const { return _effects; }
-        void launch(ATarget const &at) const {
-            at.getHitBySpell(*this);
-        }
+        void launch(ATarget const &at) const;
         virtual ASpell* clone(void) const = 0;
 
 
