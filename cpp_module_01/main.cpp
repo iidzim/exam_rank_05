@@ -1,6 +1,6 @@
-#include "Dummy.hpp"
-#include "Fwoosh.hpp"
 #include "Warlock.hpp"
+#include "Fwoosh.hpp"
+#include "Dummy.hpp"
 
 int main()
 {

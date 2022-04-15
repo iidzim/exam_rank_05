@@ -1,5 +1,6 @@
 #include "ASpell.hpp"
 
-void ASpell::launch(ATarget const &at) const {
+void ASpell::launch(const ATarget& at)const {
+
     at.getHitBySpell(*this);
 }

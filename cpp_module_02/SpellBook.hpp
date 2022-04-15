@@ -1,73 +1,60 @@
 #ifndef SPELLBOOK_HPP
 #define SPELLBOOK_HPP
 
-#include <iostream>
-#include <vector>
 #include "ASpell.hpp"
-
+#include <vector>
 
 class SpellBook{
 
+    private:
+        std::vector<ASpell*> arr;
     public:
-        SpellBook(void){}
-        SpellBook(const SpellBook& s){ *this = s; }
-        SpellBook& operator=(const SpellBook& s){
-            _v = s._v;
+        SpellBook(){}
+        SpellBook(const SpellBook& other) { *this = other; }
+        SpellBook& operator=(const SpellBook& other){
+            arr = other.arr;
             return (*this);
         }
-        ~SpellBook(void){
+        ~SpellBook(){ arr.clear(); }
 
-            std::vector<ASpell *>::iterator it = _v.begin();
-            std::vector<ASpell *>::iterator ite = _v.end();
-            while (it != ite){
-                delete *it;
-                ++it;
-            }
-            _v.clear();
-        }
+        void learnSpell(ASpell* as){
 
-        void learnSpell(ASpell* a){
-
-            std::vector<ASpell *>::iterator it = _v.begin();
-            std::vector<ASpell *>::iterator ite = _v.end();
-            while (a){
+            std::vector<ASpell*>::iterator it = arr.begin();
+            std::vector<ASpell*>::iterator ite = arr.end();
+            if (as){
                 while (it != ite){
-                    if ((*it)->getName() == a->getName())
+                    if ((*it)->getName() == as->getName())
                         return ;
                     ++it;
                 }
-                _v.push_back(a->clone());
+                arr.push_back(as->clone());
             }
         }
 
-        void forgetSpell(std::string const &n){
+        void forgetSpell(std::string const &name){
 
-            std::vector<ASpell *>::iterator it = _v.begin();
-            std::vector<ASpell *>::iterator ite = _v.end();
+            std::vector<ASpell*>::iterator it = arr.begin();
+            std::vector<ASpell*>::iterator ite = arr.end();
             while (it != ite){
-                if ((*it)->getName() == n){
-                    delete *it;
-                    _v.erase(it);
+                if ((*it)->getName() == name){
+                    arr.erase(it);
                     return ;
                 }
                 ++it;
             }
         }
+        ASpell* createSpell(std::string const &name){
 
-        ASpell* createSpell(std::string const &n){
-
-            std::vector<ASpell *>::iterator it = _v.begin();
-            std::vector<ASpell *>::iterator ite = _v.end();
+            std::vector<ASpell*>::iterator it = arr.begin();
+            std::vector<ASpell*>::iterator ite = arr.end();
             while (it != ite){
-                if ((*it)->getName() == n)
+
+                if ((*it)->getName() == name)
                     return (*it);
                 ++it;
             }
             return (NULL);
         }
-
-    private:
-        std::vector<ASpell *> _v;
 
 };
 

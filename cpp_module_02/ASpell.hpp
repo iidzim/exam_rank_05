@@ -1,5 +1,5 @@
 #ifndef ASPELL_HPP
-# define ASPELL_HPP
+#define ASPELL_HPP
 
 #include <iostream>
 #include <string>
@@ -8,29 +8,25 @@ class ATarget;
 
 class ASpell{
 
-    public:
+    protected:
+        std::string name;
+        std::string effects;
 
+    public:
         ASpell(void){}
-        ASpell(std::string n, std::string e): _name(n), _effects(e) {}
-        ASpell(const ASpell& as){ *this = as; }
-        ASpell& operator=(const ASpell& as){
-            _name = as._name;
-            _effects = as._effects;
+        ASpell(std::string n, std::string ef): name(n), effects(ef) {}
+        ASpell(const ASpell& other) { *this = other; }
+        ASpell& operator=(const ASpell& other){
+            name = other.name;
+            effects = other.effects;
             return (*this);
         }
-        ~ASpell(void){}
-        std::string const &getName(void) const { return _name; }
-        std::string const &getEffects(void) const { return _effects; }
-        void launch(ATarget const &at) const {
-            at.getHitBySpell(*this);
-        }
+        virtual ~ASpell(void){}
+
+        std::string getName(void) const { return name; }
+        std::string getEffects(void) const { return effects; }
         virtual ASpell* clone(void) const = 0;
-
-
-    private:
-        std::string _name;
-        std::string _effects;
-
+        void launch(const ATarget& at) const;
 };
 
 #include "ATarget.hpp"

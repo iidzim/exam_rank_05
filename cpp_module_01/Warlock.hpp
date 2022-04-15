@@ -2,70 +2,80 @@
 # define WARLOCK_HPP
 
 #include <iostream>
+#include <string>
+#include <vector>
 #include "ASpell.hpp"
 #include "ATarget.hpp"
-#include <vector>
 
 class Warlock{
 
-    public:
+	private:
+		std::string _name;
+		std::string _title;
+		std::vector<ASpell*> tab;
 
-        Warlock(std::string n, std::string t): _name(n), _title(t){
-            std::cout << _name << ": This looks like another boring day.\n";
-        }
-        ~Warlock(void){
-            std::cout << _name << ": My job here is done!\n";
-        }
-        const std::string& getName(void) const { return _name; }
-        const std::string& getTitle(void) const { return _title; }
-        void setTitle(const std::string& titre) { _title = titre; }
-        void introduce() const{
-            std::cout << _name << ": I am " << _name << ", " << _title << " !\n";
-        }
+		Warlock(void);
+		Warlock(const Warlock& other){ *this = other; }
+		Warlock& operator=(const Warlock& other){
 
-        void learnSpell(ASpell* a){
+			_name = other._name;
+			_title = other._title;
+			return (*this);
+		}
 
-            std::vector<ASpell *>::iterator it = this->t.begin();
-            std::vector<ASpell *>::iterator ite = this->t.end();
-            while (a){
-                while (it != ite){
-                    if ((*it)->getName() == a->getName())
-                        return ;
-                    ++it;
-                }
-                t.push_back(a->clone());
-            }
-        }
+	public:
 
-        void forgetSpell(std::string n){
+		Warlock(std::string n, std::string t): _name(n), _title(t){
+			std::cout << _name << ": This looks like another boring day.\n";
+		}
+		~Warlock(void){
+			std::cout << _name << ": My job here is done!\n";
+			tab.clear();
+		}
+		std::string const& getName(void) const{ return _name; }
+		std::string const& getTitle(void) const{ return _title; }
+		void setTitle(std::string const& t){ _title = t; }
+		void introduce() const{
+			std::cout << _name << ": I am " << _name << ", " << _title << "!\n";
+		}
 
-            std::vector<ASpell *>::iterator it = this->t.begin();
-            std::vector<ASpell *>::iterator ite = this->t.end();
-            while (it != ite){
-                if ((*it)->getName() == n){
-                    // delete *it;
-                    t.erase(it);
-                }
-                ++it;
-            }
-        }
+		void learnSpell(ASpell* a){
 
-        void launchSpell(std::string n, const ATarget& at){
-            std::vector<ASpell *>::iterator it = this->t.begin();
-            std::vector<ASpell *>::iterator ite = this->t.end();
-            while (it != ite){
-                if ((*it)->getName() == n){
-                    (*it)->launch(at);
-                    return ;
-                }
-                ++it;
-            }
-        }
+			std::vector<ASpell*>::iterator it = tab.begin();
+			std::vector<ASpell*>::iterator ite = tab.end();
+			if (a){
+				while (it != ite){
+					if ((*it)->getName() == a->getName())
+						return;
+					++it;
+				}
+				tab.push_back(a->clone());
+			}
+		}
+		void forgetSpell(std::string name){
 
-    private:
-        std::string _name;
-        std::string _title;
-        std::vector<ASpell *> t;
+			std::vector<ASpell*>::iterator it = tab.begin();
+			std::vector<ASpell*>::iterator ite = tab.end();
+			while (it != ite){
+				if ((*it)->getName() == name){
+					tab.erase(it);
+					return ;
+				}
+				++it;
+			}
+		}
+		void launchSpell(std::string name, const ATarget& target){
+
+		std::vector<ASpell*>::iterator it = tab.begin();
+		std::vector<ASpell*>::iterator ite = tab.end();
+		while (it != ite){
+			if ((*it)->getName() == name){
+				(*it)->launch(target);
+				return ;
+			}
+			++it;
+		}
+	}
 
 };
 

@@ -1,15 +1,16 @@
 #ifndef BRICKWALL_HPP
-# define BRICKWALL_HPP
+#define BRICKWALL_HPP
 
 #include "ATarget.hpp"
 
-class BrickWall: public ATarget
-{
-    public:
-        BrickWall(): ATarget("Inconspicuous Red-brick Wall"){}
-        ~BrickWall();
+class BrickWall : public ATarget{
 
-        virtual ATarget *clone() const;
+    public:
+        BrickWall(void) : ATarget("Inconspicuous Red-brick Wall"){}
+        ~BrickWall(void){}
+        virtual ATarget* clone(void) const {
+            return (new BrickWall());
+        }
 };
 
 #endif

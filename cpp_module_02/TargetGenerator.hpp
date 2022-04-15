@@ -1,51 +1,42 @@
 #ifndef TARGETGENERATOR_HPP
-# define TARGETGENERATOR_HPP
+#define TARGETGENERATOR_HPP
 
 #include "ATarget.hpp"
 #include <vector>
 
 class TargetGenerator{
-    
+
     private:
-        std::vector<ATarget *> tab;
-
+        std::vector<ATarget*> tab;
     public:
-
-        TargetGenerator(void){}
-        TargetGenerator(const TargetGenerator& t){ *this = t; }
-        TargetGenerator& operator=(const TargetGenerator& t){
-            tab = t.tab;
+        TargetGenerator(){}
+        TargetGenerator(const TargetGenerator& tg){ *this = tg; }
+        TargetGenerator& operator=(const TargetGenerator& tg){
+            tab = tg.tab;
             return (*this);
         }
-        ~TargetGenerator(void){
-            std::vector<ATarget *>::iterator it = tab.begin();
-            std::vector<ATarget *>::iterator ite = tab.end();
-            while (it != ite){
-                delete *it;
-                ++it;
-            }
-            tab.clear();
-        }
+        ~TargetGenerator(){ tab.clear(); }
 
-        void learnTargetType(ATarget* a){
-            std::vector<ATarget *>::iterator it = tab.begin();
-            std::vector<ATarget *>::iterator ite = tab.end();
-            while (a){
+        void learnTargetType(ATarget* at){
+
+            std::vector<ATarget*>::iterator it = tab.begin();
+            std::vector<ATarget*>::iterator ite = tab.end();
+            if (at){
                 while (it != ite){
-                    if ((*it)->getType() == a->getType())
+                    if ((*it)->getType() == at->getType())
                         return ;
                     ++it;
                 }
-                tab.push_back(a->clone());
+                tab.push_back(at->clone());
             }
         }
 
-        void forgetTargetType(std::string const &ty){
-            std::vector<ATarget *>::iterator it = tab.begin();
-            std::vector<ATarget *>::iterator ite = tab.end();
+        void forgetTargetType(std::string const &type){
+
+            std::vector<ATarget*>::iterator it = tab.begin();
+            std::vector<ATarget*>::iterator ite = tab.end();
             while (it != ite){
-                if ((*it)->getType() == ty){
-                    delete *it;
+                if ((*it)->getType() == type){
                     tab.erase(it);
                     return ;
                 }
@@ -53,17 +44,18 @@ class TargetGenerator{
             }
         }
 
-        ATarget* createTarget(std::string const &ty){
-            std::vector<ATarget *>::iterator it = tab.begin();
-            std::vector<ATarget *>::iterator ite = tab.end();
-            while (it != ite){
-                if ((*it)->getType() == ty)
+        ATarget* createTarget(std::string const &type){
+
+            std::vector<ATarget*>::iterator it = tab.begin();
+            std::vector<ATarget*>::iterator ite = tab.end();
+            while(it != ite){
+                if ((*it)->getType() == type)
                     return (*it);
                 ++it;
             }
             return (NULL);
         }
-    
+
 };
 
 #endif
